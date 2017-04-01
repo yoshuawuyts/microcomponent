@@ -1,0 +1,26 @@
+{
+  "name": "microcomponent",
+  "description": "Smol event based component library",
+  "repository": "yoshuawuyts/microcomponent",
+  "version": "1.0.0",
+  "scripts": {
+    "deps": "dependency-check . && dependency-check . --extra --no-dev",
+    "start": "node .",
+    "test": "standard && npm run deps",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
+  },
+  "dependencies": {
+    "nanocomponent": "3.0.0"
+  },
+  "devDependencies": {
+    "dependency-check": "^2.8.0",
+    "nyc": "^10.1.2",
+    "standard": "^9.0.2",
+    "tape": "^4.6.3"
+  },
+  "keywords": [
+    "component",
+    "event",
+    "diffing"
+  ]
+}
