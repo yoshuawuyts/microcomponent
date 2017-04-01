@@ -28,11 +28,11 @@ function createComponent () {
     return newText !== text
   })
 
-  component.on('load', function (newText) {
+  component.on('load', function () {
     console.log('mounted on DOM')
   })
 
-  component.on('unload', function (newText) {
+  component.on('unload', function () {
     console.log('removed from DOM')
   })
 
