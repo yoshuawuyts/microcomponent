@@ -43,18 +43,21 @@ function createComponent () {
 ```
 
 ## API
-### `component = Component([name])`
+### `component = Component([name], [state])`
 Create a new Microcomponent instance. Takes a name string that's used for
 logging data. Logging is logged on log level `'debug'`. You can set the log
-level through `localstorage.logLevel = 'debug|info|warn|error|fatal'`.
+level through `localstorage.logLevel = 'debug|info|warn|error|fatal'`. Also
+takes an object that will be initialized as `this.state`.
 
 ### `component.on(eventname, handler)`
 Register a new handler for an eventname. Can register any custom event,
 built-in lifecycle events are:
-- `render`
-- `update`
-- `load`
-- `unload`
+- `render`: (required) create a new DOMNode. If there's already been an DOMNode
+  rendered it'll be diffed instead. Must always return an DOMNode of the same
+  type.
+- `update`: (required) determine if `update` should be called
+- `load`: called when the element is mounted on the DOM
+- `unload`: called when the element is removed from the DOM
 
 ### `component.emit(eventname, […data])`
 Trigger a handler on the component.

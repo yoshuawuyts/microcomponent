@@ -2,6 +2,7 @@
   "name": "microcomponent",
   "description": "Smol event based component library",
   "repository": "yoshuawuyts/microcomponent",
+  "license": "MIT",
   "version": "1.1.0",
   "scripts": {
     "deps": "dependency-check . && dependency-check . --extra --no-dev",
@@ -10,8 +11,9 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
   },
   "dependencies": {
-    "nanocomponent": "3.0.0",
-    "nanologger": "^1.0.2"
+    "nanocomponent": "4.0.0",
+    "nanologger": "^1.0.2",
+    "nanomorph": "^4.0.3"
   },
   "devDependencies": {
     "dependency-check": "^2.8.0",
