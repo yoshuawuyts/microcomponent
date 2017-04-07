@@ -3,6 +3,7 @@
 [![downloads][8]][9] [![js-standard-style][10]][11]
 
 Smol event based component library. Syntactic sugar around [nanocomponent][nc].
+Adds logging through [nanologger](https://github.com/yoshuawuyts/nanologger).
 
 ## Usage
 ```js
@@ -13,45 +14,52 @@ var component = createComponent()
 document.body.appendChild(component.render())
 
 function createComponent () {
-  var component = microcomponent()
   var text = null
 
-  component.on('render', function (newText) {
-    text = newText
-
-    return html`
-      <h1>${text}</h1>
-    `
-  })
-
-  component.on('update', function (newText) {
-    return newText !== text
-  })
-
-  component.on('load', function () {
-    console.log('mounted on DOM')
-  })
-
-  component.on('unload', function () {
-    console.log('removed from DOM')
-  })
-
+  var component = microcomponent()
+  component.on('render', render)
+  component.on('update', update)
+  component.on('load', load)
+  component.on('unload', unload)
   return component
+
+  function render (newText) {
+    text = newText
+    return html`<h1>${text}</h1>`
+  }
+
+  function update (newText) {
+    return newText !== text
+  }
+
+  function load () {
+    console.log('mounted on DOM')
+  }
+
+  function unload () {
+    console.log('removed from DOM')
+  }
 }
 ```
 
 ## API
-### component = Component()
-Create a new Microcomponent instance.
+### `component = Component([name])`
+Create a new Microcomponent instance. Takes a name string that's used for
+logging data. Logging is logged on log level `'debug'`. You can set the log
+level through `localstorage.logLevel = 'debug|info|warn|error|fatal'`.
 
-### component.on(eventname, handler)
-Register a new handler for an eventname. Possible events are:
+### `component.on(eventname, handler)`
+Register a new handler for an eventname. Can register any custom event,
+built-in lifecycle events are:
 - `render`
 - `update`
 - `load`
 - `unload`
 
-### component.render()
+### `component.emit(eventname, […data])`
+Trigger a handler on the component.
+
+### `DOMNode = component.render([…data])`
 Render an element.
 
 ## See Also
