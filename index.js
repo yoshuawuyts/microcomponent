@@ -64,5 +64,5 @@ Microcomponent.prototype.emit = function (eventname) {
   var len = arguments.length - 1
   var args = new Array(len)
   for (var i = 0; i < len; i++) args[i] = arguments[i + 1]
-  this['_' + eventname].apply(this, args)
+  return this['_' + eventname].apply(this, args)
 }
