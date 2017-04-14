@@ -3,7 +3,7 @@ var nanologger = require('nanologger')
 var nanomorph = require('nanomorph')
 var assert = require('assert')
 
-var Nanotiming = require('./lib/timing')
+var nanotiming = require('nanotiming')
 
 module.exports = Microcomponent
 
@@ -17,7 +17,7 @@ function Microcomponent (opts) {
   this.props = opts.props || {}
   this.state = opts.state || {}
 
-  this._timing = new Nanotiming(this.name)
+  this._timing = nanotiming(this.name)
   this._log = nanologger(this.name)
   this._log.debug('initialized')
 }
