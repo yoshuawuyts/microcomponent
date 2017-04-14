@@ -3,7 +3,7 @@
   "description": "Smol event based component library",
   "repository": "yoshuawuyts/microcomponent",
   "license": "MIT",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "scripts": {
     "deps": "dependency-check . && dependency-check . --extra --no-dev",
     "start": "node .",
