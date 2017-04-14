@@ -16,8 +16,8 @@ document.body.appendChild(component.render())
 function createComponent () {
   var component = microcomponent({
     props: {
-      text: null  
-    }  
+      text: null
+    }
   })
   component.on('render', render)
   component.on('update', update)
@@ -62,10 +62,10 @@ built-in lifecycle events are:
 - `load`: called when the element is mounted on the DOM
 - `unload`: called when the element is removed from the DOM
 
-### `component.emit(eventname, […data])`
+### `component.emit(eventname, [props])`
 Trigger a handler on the component.
 
-### `DOMNode = component.render()`
+### `DOMNode = component.render([props])`
 Render an element.
 
 ## See Also
