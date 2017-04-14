@@ -17,8 +17,8 @@ function Microcomponent (opts) {
   this.props = opts.props || {}
   this.state = opts.state || {}
 
-  this._timing = new Nanotiming(this._name)
-  this._log = nanologger(this._name)
+  this._timing = new Nanotiming(this.name)
+  this._log = nanologger(this.name)
   this._log.debug('initialized')
 }
 Microcomponent.prototype = Object.create(Nanocomponent.prototype)
