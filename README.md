@@ -14,22 +14,23 @@ var component = createComponent()
 document.body.appendChild(component.render())
 
 function createComponent () {
-  var text = null
-
-  var component = microcomponent()
+  var component = microcomponent({
+    props: {
+      text: null  
+    }  
+  })
   component.on('render', render)
   component.on('update', update)
   component.on('load', load)
   component.on('unload', unload)
   return component
 
-  function render (newText) {
-    text = newText
-    return html`<h1>${text}</h1>`
+  function render () {
+    return html`<h1>${this.props.text}</h1>`
   }
 
-  function update (newText) {
-    return newText !== text
+  function update (props) {
+    return props.text !== this.props.text
   }
 
   function load () {
@@ -43,11 +44,13 @@ function createComponent () {
 ```
 
 ## API
-### `component = Component([name], [state])`
+### `component = Component([{ name, props, state }])`
 Create a new Microcomponent instance. Takes a name string that's used for
 logging data. Logging is logged on log level `'debug'`. You can set the log
 level through `localstorage.logLevel = 'debug|info|warn|error|fatal'`. Also
-takes an object that will be initialized as `this.state`.
+takes objects that will be initialized as `this.state` and `this.props`. For
+reference, a `this.oldProps` will always contain the state of the previous
+render iteration.
 
 ### `component.on(eventname, handler)`
 Register a new handler for an eventname. Can register any custom event,
@@ -62,7 +65,7 @@ built-in lifecycle events are:
 ### `component.emit(eventname, […data])`
 Trigger a handler on the component.
 
-### `DOMNode = component.render([…data])`
+### `DOMNode = component.render()`
 Render an element.
 
 ## See Also

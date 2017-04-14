@@ -7,12 +7,15 @@ var Nanotiming = require('./lib/timing')
 
 module.exports = Microcomponent
 
-function Microcomponent (name, state) {
-  if (!(this instanceof Microcomponent)) return new Microcomponent(name)
+function Microcomponent (opts) {
+  if (!(this instanceof Microcomponent)) return new Microcomponent(opts)
   Nanocomponent.call(this)
 
-  this._name = name || 'component'
-  this._state = state || {}
+  opts = opts || {}
+  this.name = opts.name || 'component'
+  this.oldProps = {}
+  this.props = opts.props || {}
+  this.state = opts.state || {}
 
   this._timing = new Nanotiming(this._name)
   this._log = nanologger(this._name)
@@ -25,20 +28,17 @@ Microcomponent.prototype.on = function (eventname, handler) {
   assert.equal(typeof handler, 'function', 'microcomponent.on handler should be type function')
 
   if (eventname === 'render') {
-    this._render = function () {
+    this._render = function (props) {
       this._timing.start(eventname)
-      var len = arguments.length
-      var args = new Array(len)
-      for (var i = 0; i < len; i++) args[i] = arguments[i]
-      args.length
-        ? this._log.debug(eventname, args)
-        : this._log.debug(eventname)
+      this._log.debug(eventname, props)
+      this.oldProps = this.props
+      this.props = props
 
       if (this._element) {
-        nanomorph(this._element, handler.apply(this, args))
+        nanomorph(this._element, handler.call(this))
         this._timing.end(eventname)
       } else {
-        var el = handler.apply(this, args)
+        var el = handler.call(this)
         this._timing.end(eventname)
         return el
       }
