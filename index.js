@@ -57,6 +57,8 @@ Microcomponent.prototype.on = function (eventname, handler) {
       return res
     }
   }
+
+  return this
 }
 
 Microcomponent.prototype.emit = function (eventname) {
