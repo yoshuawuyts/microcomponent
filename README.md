@@ -44,13 +44,16 @@ function createComponent () {
 ```
 
 ## API
-### `component = Component([{ name, props, state }])`
+### `component = Component([{ name, props, state, pure }])`
 Create a new Microcomponent instance. Takes a name string that's used for
 logging data. Logging is logged on log level `'debug'`. You can set the log
 level through `localstorage.logLevel = 'debug|info|warn|error|fatal'`. Also
 takes objects that will be initialized as `this.state` and `this.props`. For
 reference, a `this.oldProps` will always contain the state of the previous
 render iteration.
+
+Set `pure = true` to activate the default `on('update')` handler, which will
+shallow diff `props` with `this.props`.
 
 ### `component.on(eventname, handler)`
 Register a new handler for an eventname. Can register any custom event,

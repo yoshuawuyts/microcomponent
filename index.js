@@ -2,6 +2,7 @@ var Nanocomponent = require('nanocomponent')
 var nanologger = require('nanologger')
 var nanomorph = require('nanomorph')
 var assert = require('assert')
+var shallowEqual = require('shallow-equal/objects')
 
 var nanotiming = require('nanotiming')
 
@@ -20,6 +21,12 @@ function Microcomponent (opts) {
   this._timing = nanotiming(this.name)
   this._log = nanologger(this.name)
   this._log.debug('initialized')
+
+  if (opts.pure) {
+    this._update = function (props) {
+      return !shallowEqual(props, this.props)
+    }
+  }
 }
 Microcomponent.prototype = Object.create(Nanocomponent.prototype)
 
