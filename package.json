@@ -15,7 +15,7 @@
     "nanologger": "^1.0.2",
     "nanomorph": "^4.0.3",
     "nanotiming": "^1.0.0",
-    "shallow-equal": "^1.0.0"
+    "shallow-equal": "github:juliangruber/shallow-equal#add/element-checks"
   },
   "devDependencies": {
     "dependency-check": "^2.8.0",
