@@ -11,7 +11,7 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
   },
   "dependencies": {
-    "nanocomponent": "4.0.0",
+    "nanocomponent": "^4.0.1",
     "nanologger": "^1.0.2",
     "nanomorph": "^4.0.3",
     "nanotiming": "^1.0.0",
