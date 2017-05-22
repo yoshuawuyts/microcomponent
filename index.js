@@ -42,7 +42,19 @@ Microcomponent.prototype.on = function (eventname, handler) {
       this.props = props
 
       if (this._element) {
+        var onload
+        var attrNames = Object.keys(this._element.attributes)
+        for (var i = 0; i < attrNames.length; i++) {
+          if (/^data-onload/.test(attrNames[i])) {
+            onload = {
+              name: attrNames[i],
+              value: this._element.attributes[attrNames[i]]
+            }
+            break
+          }
+        }
         nanomorph(this._element, handler.call(this))
+        if (onload) this._element.setAttribute(onload.name, onload.value)
         this._timing.end(eventname)
       } else {
         var el = handler.call(this)
