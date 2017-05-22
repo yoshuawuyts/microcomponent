@@ -11,9 +11,9 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
   },
   "dependencies": {
-    "nanocomponent": "^4.0.1",
+    "nanocomponent": "^4.0.2",
     "nanologger": "^1.0.2",
-    "nanomorph": "^4.0.3",
+    "nanomorph": "^5.0.0",
     "nanotiming": "^1.0.0",
     "shallow-equal": "github:juliangruber/shallow-equal#add/element-checks"
   },
