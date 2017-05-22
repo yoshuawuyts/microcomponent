@@ -2,7 +2,7 @@ var Nanocomponent = require('nanocomponent')
 var nanologger = require('nanologger')
 var nanomorph = require('nanomorph')
 var assert = require('assert')
-var shallowEqual = require('shallow-equal/objects')
+var shallowEqual = require('juliangruber-shallow-equal/objects')
 
 var nanotiming = require('nanotiming')
 

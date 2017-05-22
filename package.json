@@ -11,11 +11,11 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
   },
   "dependencies": {
+    "juliangruber-shallow-equal": "^1.0.4",
     "nanocomponent": "^4.0.2",
     "nanologger": "^1.0.2",
     "nanomorph": "^5.0.0",
-    "nanotiming": "^1.0.0",
-    "shallow-equal": "github:juliangruber/shallow-equal#add/element-checks"
+    "nanotiming": "^1.0.0"
   },
   "devDependencies": {
     "dependency-check": "^2.8.0",
