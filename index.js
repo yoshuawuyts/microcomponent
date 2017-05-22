@@ -4,7 +4,7 @@ var nanomorph = require('nanomorph')
 var assert = require('assert')
 var shallowEqual = require('juliangruber-shallow-equal/objects')
 
-var nanotiming = require('nanotiming')
+var rootLabelRegex = /^data-onloadid/
 
 module.exports = Microcomponent
 
@@ -18,7 +18,6 @@ function Microcomponent (opts) {
   this.props = opts.props || {}
   this.state = opts.state || {}
 
-  this._timing = nanotiming(this.name)
   this._log = nanologger(this.name)
   this._log.debug('initialized')
 
@@ -36,35 +35,31 @@ Microcomponent.prototype.on = function (eventname, handler) {
 
   if (eventname === 'render') {
     this._render = function (props) {
-      this._timing.start(eventname)
       this._log.debug(eventname, props)
       this.oldProps = this.props
       this.props = props
 
+      var newElement = handler.call(this)
+
       if (this._element) {
-        var onload
-        var attrNames = Object.keys(this._element.attributes)
-        for (var i = 0; i < attrNames.length; i++) {
-          if (/^data-onload/.test(attrNames[i])) {
-            onload = {
-              name: attrNames[i],
-              value: this._element.attributes[attrNames[i]]
-            }
+        var oldAttrs = this._element.attributes
+        var attr, name
+        for (var i = 0, len = oldAttrs.length; i < len; i++) {
+          attr = oldAttrs[i]
+          name = attr.name
+          if (rootLabelRegex.test(name)) {
+            newElement.setAttribute(name, attr.value)
             break
           }
         }
-        nanomorph(this._element, handler.call(this))
-        if (onload) this._element.setAttribute(onload.name, onload.value)
-        this._timing.end(eventname)
+        nanomorph(this._element, newElement)
       } else {
         var el = handler.call(this)
-        this._timing.end(eventname)
         return el
       }
     }
   } else {
     this['_' + eventname] = function () {
-      this._timing.start(eventname)
       var len = arguments.length
       var args = new Array(len)
       for (var i = 0; i < len; i++) args[i] = arguments[i]
@@ -72,7 +67,6 @@ Microcomponent.prototype.on = function (eventname, handler) {
         ? this._log.debug(eventname, args)
         : this._log.debug(eventname)
       var res = handler.apply(this, args)
-      this._timing.end(eventname)
       return res
     }
   }
