@@ -14,7 +14,6 @@ function Microcomponent (opts) {
 
   opts = opts || {}
   this.name = opts.name || 'component'
-  this.oldProps = {}
   this.props = opts.props || {}
   this.state = opts.state || {}
 
@@ -40,11 +39,6 @@ Microcomponent.prototype.on = function (eventname, handler) {
     var render = this.render
     this.render = function (props) {
       this._log.debug(eventname, props)
-      if (this._element && !this._update(props)) return this._element
-
-      this.oldProps = this.props
-      this.props = props
-
       var oldElement = this._element
       render.call(this, props)
       var newElement = this._element

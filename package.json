@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "juliangruber-shallow-equal": "^1.0.4",
-    "nanocomponent": "^4.0.3",
+    "nanocomponent": "^5.0.0",
     "nanologger": "^1.1.0",
     "nanomorph": "^5.0.0"
   },
