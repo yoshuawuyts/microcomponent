@@ -34,15 +34,23 @@ Microcomponent.prototype.on = function (eventname, handler) {
   assert.equal(typeof handler, 'function', 'microcomponent.on handler should be type function')
 
   if (eventname === 'render') {
-    this._render = function (props) {
+    this._render = function () {
+      return handler.call(this)
+    }
+    var render = this.render
+    this.render = function (props) {
       this._log.debug(eventname, props)
+      if (this._element && !this._update(props)) return this._element
+
       this.oldProps = this.props
       this.props = props
 
-      var newElement = handler.call(this)
+      var oldElement = this._element
+      render.call(this, props)
+      var newElement = this._element
 
-      if (this._element) {
-        var oldAttrs = this._element.attributes
+      if (oldElement) {
+        var oldAttrs = oldElement.attributes
         var attr, name
         for (var i = 0, len = oldAttrs.length; i < len; i++) {
           attr = oldAttrs[i]
@@ -52,11 +60,11 @@ Microcomponent.prototype.on = function (eventname, handler) {
             break
           }
         }
-        nanomorph(this._element, newElement)
-      } else {
-        var el = handler.call(this)
-        return el
+        nanomorph(oldElement, newElement)
+        this._element = oldElement
       }
+
+      return this._element
     }
   } else {
     this['_' + eventname] = function () {

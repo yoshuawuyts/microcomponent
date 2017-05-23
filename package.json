@@ -12,18 +12,20 @@
   },
   "dependencies": {
     "juliangruber-shallow-equal": "^1.0.4",
-    "nanocomponent": "^4.0.2",
+    "nanocomponent": "^4.0.3",
     "nanologger": "^1.1.0",
     "nanomorph": "^5.0.0"
   },
   "devDependencies": {
+    "array-move": "^1.0.0",
     "beefy": "^2.1.8",
     "bel": "^5.0.0",
     "browserify": "^14.3.0",
     "dependency-check": "^2.8.0",
     "nyc": "^10.1.2",
     "standard": "^9.0.2",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "yo-css": "^1.1.0"
   },
   "keywords": [
     "component",
