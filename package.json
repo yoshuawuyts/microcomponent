@@ -7,7 +7,7 @@
   "scripts": {
     "deps": "dependency-check . && dependency-check . --extra --no-dev",
     "start": "beefy example.js",
-    "test": "standard && npm run deps",
+    "test": "standard && npm run deps && browserify test.js | tape-run",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "nyc": "^10.1.2",
     "standard": "^9.0.2",
     "tape": "^4.6.3",
+    "tape-run": "^3.0.0",
     "yo-css": "^1.1.0"
   },
   "keywords": [

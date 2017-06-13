@@ -40,7 +40,7 @@ Microcomponent.prototype.on = function (eventname, handler) {
     this.render = function (props) {
       this._log.debug(eventname, props)
       var oldElement = this._element
-      render.call(this, props)
+      var ret = render.call(this, props)
       var newElement = this._element
 
       if (oldElement) {
@@ -58,7 +58,7 @@ Microcomponent.prototype.on = function (eventname, handler) {
         this._element = oldElement
       }
 
-      return this._element
+      return ret
     }
   } else {
     this['_' + eventname] = function () {
